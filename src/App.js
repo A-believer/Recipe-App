@@ -8,7 +8,7 @@ import Search from './components/Search';
 function App() {
   return (
     <div className="App">
-      Recipe App
+      <h1>Recipe App</h1>
       {/* <Favorites /> */}
       <Meals />
       {/* <Modal/> */}
