@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 
 
-const allMealsUrl = 'https://www.themealdb.com/api/json/v1/1/search.php?s=a';
+const allMealsUrl = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 const randonMealsUrl = 'https://www.themealdb.com/api/json/v1/1/random.php';
 const AppContext = React.createContext()
 
