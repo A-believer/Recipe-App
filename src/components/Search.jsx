@@ -1,31 +1,37 @@
-import { useState } from "react"
-import { useGlobalContext } from "../context"
+import { useState } from 'react'
+import {useGlobalContext} from '../context' 
+
+
 
 const Search = () => {
-    const [text, setText] = useState("")
+  const { setSearchTerm, fetchRandomMeal } = useGlobalContext()
+  const [text, setText] = useState('')
+
+  const handleChange = (e) => {
+    setText(e.target.value)
+  }
+  const handleSubmit = (e) => {
+      e.preventDefault()
+      if (text) {
+          setSearchTerm(text);
+    }
+   
+    }
     
-const { setSearchText } = useGlobalContext();
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        if (text) {setSearchText(text)
-            setText('')
-        }
+    const handleRandomMeal = () => {
+        setSearchTerm('')
+        setText('')
+        fetchRandomMeal()
     }
 
-    const handleChange = (e) => {
-        setText(e.target.value)
-    }
-
-    
-    return (
-        <header className="search-container">
-            <form action="" onSubmit={handleSubmit}>
-                <input type="text" className="form-input"  placeholder="type favorite meal" value={text} onChange={handleChange}/>
-                <button className="btn" type="submit">Search</button>
-                <button className="btn btn-hipster" type="button">Surprise Me!</button>
-            </form>
-        </header>
-    )
+  return <header className='search-container'>
+    <form onSubmit={handleSubmit} >
+      <input type='text' onChange={handleChange} value={text} placeholder='type favorite meal' className='form-input' />
+      <button type="submit" className="btn">search</button>
+      <button type="btn" className="btn btn-hipster" onClick={handleRandomMeal}>suprise me!</button>
+    </form>
+  </header>
 }
+
 
 export default Search
