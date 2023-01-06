@@ -1,4 +1,4 @@
-# Meals Application
+# Recipe Application
 
 #### Create A New Project in REPLIT
 
