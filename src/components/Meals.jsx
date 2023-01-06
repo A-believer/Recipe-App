@@ -1,8 +1,10 @@
 import { useGlobalContext } from "../context"
-import {BsHandThumbsUp} from 'react-icons/bs'
+import { BsHandThumbsUp } from 'react-icons/bs'
+import ReactPaginate from 'react-paginate';
+import {  GrLinkPrevious, GrLinkNext} from 'react-icons/gr'
 
 const Meals = () => {
-    const { loading, meals, selectMeal, addToFavorites } = useGlobalContext();
+    const { loading, meals, selectMeal, addToFavorites, handlePageClick, pageCount, currentItem } = useGlobalContext();
     
 
     if (loading) {
@@ -11,7 +13,7 @@ const Meals = () => {
         </section>
     }
 
-    if (meals.length < 1) {
+    if (currentItem.length < 1) {
         return <section className="section">
             <h4>
                 No meals matched your search term. Please try again.
@@ -22,7 +24,7 @@ const Meals = () => {
     return (
         <section className="section-center">
 
-            {meals.map((singleMeal) => {
+            {currentItem.map((singleMeal) => {
                 const { idMeal, strMeal: title, strMealThumb: image } = singleMeal
                 return <article key={idMeal} className='single-meal'>
                     <img src={image} className="img"
@@ -34,9 +36,24 @@ const Meals = () => {
                             onClick={() => addToFavorites(idMeal)}>
                             <BsHandThumbsUp /> </button>
                     </footer>
-
-                </article>
+                 </article>
             })}
+            <footer className="pagination">
+                <ReactPaginate 
+                    previousLabel={<GrLinkPrevious/>}
+                    nextLabel={<GrLinkNext/>}
+                    pageCount={pageCount}
+                    onPageChange={() => handlePageClick()}
+                    containerClassName='paginate-container'
+                    pageClassName={'paginate-items'}
+                    pageLinkClassName={"paginate-links"}
+                    previousClassName={"paginate-previous"}
+                    nextClassName={"paginate-next"}
+                    // activeClassName={"paginate-active"}
+                    renderOnZeroPageCount={null}
+                />    
+</footer>
+                     
         </section>
     )
 }

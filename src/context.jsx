@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 
 
-const allMealsUrl = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+const allMealsUrl = 'https://www.themealdb.com/api/json/v1/1/search.php?s=&_limit=5';
 const randonMealsUrl = 'https://www.themealdb.com/api/json/v1/1/random.php';
 const AppContext = React.createContext();
 
@@ -24,6 +24,26 @@ const AppProvider = ({ children }) => {
     const [showModal, setShowModal] = useState(false)
     const [selectedMeal, setSelectedMeal] = useState(null);
     const [favorites, setFavorites] = useState(getFavoritesFromLocalStorage());
+
+    // Second Shot at Pagination
+    const [currentItem, setCurrentItem] = useState([meals]);
+    const [pageCount, setPageCount] = useState(0);
+    const [itemOffset, setItemOffset] = useState(0);
+    const itemsPerPage = 5;
+
+    useEffect(() => {
+        const endOffset = itemOffset + itemsPerPage;
+        setCurrentItem(meals.slice(itemOffset, endOffset))
+        setPageCount(Math.ceil(meals.length / itemsPerPage));
+    }, [itemOffset, itemsPerPage, meals]);
+
+    const handlePageClick = (event) => {
+        const newOffset = (event.selected * itemsPerPage) % meals.length;
+        setItemOffset(newOffset)
+    }
+
+
+    //End of Pagination
   
     const selectMeal = (idMeal, favoriteMeal) => {
         let meal;
@@ -42,9 +62,9 @@ const AppProvider = ({ children }) => {
   const fetchMeals = async (url) => {
     setLoading(true)
     try {
-      const { data } = await axios.get(url)
+        const { data } = await axios.get(url)
       if (data.meals) {
-        setMeals(data.meals)
+          setMeals(data.meals)
       }
       else {
         setMeals([])
@@ -93,7 +113,8 @@ const AppProvider = ({ children }) => {
         <AppContext.Provider value={{
             loading, meals, setSearchTerm, fetchRandomMeal,
             showModal, selectMeal, selectedMeal, closeModal,
-            addToFavorites, removeFromFavorites, favorites
+            addToFavorites, removeFromFavorites, favorites,
+            handlePageClick, pageCount, currentItem
         }}>
             {children}
         </AppContext.Provider>

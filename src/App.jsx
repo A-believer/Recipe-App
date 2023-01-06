@@ -6,6 +6,7 @@ import Meals from './components/Meals';
 import Modal from './components/Modal';
 import Search from './components/Search';
 
+
 function App() {
   const {showModal, favorites} = useGlobalContext()
   return (
@@ -13,9 +14,8 @@ function App() {
       <Search/>
       {favorites.length > 0 && <Favorites />}
       <Meals />
+      {/* <Pagination/> */}
       {showModal && <Modal/>}
-      
-      
     </main>
   );
 }
