@@ -13,7 +13,7 @@ const Meals = () => {
         </section>
     }
 
-    if (currentItem.length < 1) {
+    if (meals.length < 1) {
         return <section className="section">
             <h4>
                 No meals matched your search term. Please try again.
@@ -23,7 +23,7 @@ const Meals = () => {
 
     return (
         <section className="section-center">
-
+<>
             {currentItem.map((singleMeal) => {
                 const { idMeal, strMeal: title, strMealThumb: image } = singleMeal
                 return <article key={idMeal} className='single-meal'>
@@ -38,6 +38,8 @@ const Meals = () => {
                     </footer>
                  </article>
             })}
+
+            </>
             <footer className="pagination">
                 <ReactPaginate 
                     previousLabel={<GrLinkPrevious/>}

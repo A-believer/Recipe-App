@@ -26,7 +26,7 @@ const AppProvider = ({ children }) => {
     const [favorites, setFavorites] = useState(getFavoritesFromLocalStorage());
 
     // Second Shot at Pagination
-    const [currentItem, setCurrentItem] = useState([meals]);
+    const [currentItem, setCurrentItem] = useState(meals);
     const [pageCount, setPageCount] = useState(0);
     const [itemOffset, setItemOffset] = useState(0);
     const itemsPerPage = 5;
