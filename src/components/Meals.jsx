@@ -31,7 +31,7 @@ const Meals = () => {
                     <footer>
                         <h5>{title}</h5>
                         <button className="like-btn"
-                            onClick={() => addToFavorites}>
+                            onClick={() => addToFavorites(idMeal)}>
                             <BsHandThumbsUp /> </button>
                     </footer>
 
